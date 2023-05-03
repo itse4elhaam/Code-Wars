@@ -149,27 +149,3 @@ int main() {
     return 0;
 }
 
-
-
-// * DUMP:
-// if (dups.length() > 1) {
-//     for (char s : dups) {
-//         if (w == s) {
-//             brackets += '(';
-//         }
-//         else {
-//             brackets += ')';
-//         }
-//     }
-// }
-// else if (dups.length() == 1) {
-//     if (w == w) {
-//         brackets += '(';
-//     }
-//     else {
-//         brackets += ')';
-//     }
-// }
-// else {
-//     brackets += '(' * word.length();
-// }
