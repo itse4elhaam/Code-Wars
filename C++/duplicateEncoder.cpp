@@ -3,32 +3,173 @@
 // ? Incomplete 
 #include <iostream>
 #include <string>
+#include <algorithm>
 using namespace std;
 
-string duplicate_encoder(const string &word){
+string get_dup_words(const string& word) {
+    string copy = word;
+    string dups = "";
 
-    string brackets = "";
-    int i = 0;
-    string copy = word; // make a copy of the original string
-    for (char w : word)
-    {
-        copy.erase(0, i); // erase the first i characters from the copy
-        if (copy.find(w) != string::npos)
-        {
-            brackets += ')';
+    for (int i = 0; i < copy.length(); i++) {
+        char to_be_searched = copy[i];
+        if (dups.find(to_be_searched) != string::npos) {
+            continue;
         }
-        else
-        {
-            brackets += '(';
+        for (int j = 0; j < copy.length(); j++) {
+            char w = copy[j];
+            if (j == i) {
+                continue;
+            }
+
+            if (to_be_searched == w) {
+                dups += w;
+                break;
+            }
         }
-        i++;
     }
+    return dups;
+}
+
+string duplicate_encoder(const string& word) {
+
+    string copy = word;
+    transform(copy.begin(), copy.end(), copy.begin(), ::tolower);
+    cout << "lower case " << copy << endl;
+    string dups = get_dup_words(copy);
+    cout << "duplicates: " << dups << endl;
+
+    if (dups.length() == 0) {
+        cout << "Duplicates not found!!" << endl;
+        string brackets(copy.length(),'(');
+        return brackets ;
+    }
+    string brackets = "";
+    for (char w:copy){
+
+        bool repeat = false;
+        for (char s : dups) {
+            if (w == s) {
+                repeat = true;
+                cout << "comparison : " << w << " " << s << endl;   
+                break;
+            }
+        }
+
+        if (repeat) {
+                brackets += ')';
+
+        }else{
+                brackets += '(';
+        }
+
+    }
+
     return brackets;
 }
 
-int main()
-{
-    
-    cout << duplicate_encoder("recede") << endl;
+int main() {
+    // Basic tests using cout statements and if statements
+    // string test_word = "din";
+    // string expected_result = "(((";
+    // string result = duplicate_encoder(test_word);
+    // if (result == expected_result) {
+    //     cout << "Test 1 Passed" << endl;
+    // }
+    // else {
+    //     cout << "Test 1 Failed. Expected result: " << expected_result << ". Got: " << result << endl;
+    // }
+    //     cout << endl;
+
+    // test_word = "recede";
+    // expected_result = "()()()";
+    // result = duplicate_encoder(test_word);
+    // if (result == expected_result) {
+    //     cout << "Test 2 Passed" << endl;
+    // }
+    // else {
+    //     cout << "Test 2 Failed. Expected result: " << expected_result << ". Got: " << result << endl;
+    // }
+    //     cout << endl;
+
+    string test_word = "Success";
+    string expected_result = ")())())";
+    string result = duplicate_encoder(test_word);
+    if (result == expected_result) {
+        cout << "Test 3 Passed" << endl;
+    }
+    else {
+        cout << "Test 3 Failed. Expected result: " << expected_result << ". Got: " << result << endl;
+    }
+        cout << endl;
+
+    // test_word = "CodeWarrior";
+    // expected_result = "()(((())())";
+    // result = duplicate_encoder(test_word);
+    // if (result == expected_result) {
+    //     cout << "Test 4 Passed" << endl;
+    // }
+    // else {
+    //     cout << "Test 4 Failed. Expected result: " << expected_result << ". Got: " << result << endl;
+    // }
+        // cout << endl;
+
+    // test_word = "Supralapsarian";
+    // expected_result = ")()))()))))()(";
+    // result = duplicate_encoder(test_word);
+    // if (result == expected_result) {
+    //     cout << "Test 5 Passed" << endl;
+    // }
+    // else {
+    //     cout << "Test 5 Failed. Expected result: " << expected_result << ". Got: " << result << endl;
+    // }
+        // cout << endl;
+
+    // test_word = "(( @";
+    // expected_result = "))((";
+    // result = duplicate_encoder(test_word);
+    // if (result == expected_result) {
+    //     cout << "Test 6 Passed" << endl;
+    // }
+    // else {
+    //     cout << "Test 6 Failed. Expected result: " << expected_result << ". Got: " << result << endl;
+    // }
+        // cout << endl;
+
+    // test_word = " ( ( )";
+    // expected_result = ")))))(";
+    // result = duplicate_encoder(test_word);
+    // if (result == expected_result) {
+    //     cout << "Test 7 Passed" << endl;
+    // }
+    // else {
+    //     cout << "Test 7 Failed. Expected result: " << expected_result << ". Got: " << result << endl;
+    // }
+        // cout << endl;
+
     return 0;
 }
+
+
+
+// * DUMP:
+// if (dups.length() > 1) {
+//     for (char s : dups) {
+//         if (w == s) {
+//             brackets += '(';
+//         }
+//         else {
+//             brackets += ')';
+//         }
+//     }
+// }
+// else if (dups.length() == 1) {
+//     if (w == w) {
+//         brackets += '(';
+//     }
+//     else {
+//         brackets += ')';
+//     }
+// }
+// else {
+//     brackets += '(' * word.length();
+// }
