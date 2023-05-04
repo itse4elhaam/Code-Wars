@@ -1,3 +1,4 @@
 *.exe
 *.editorconfig
 *.vscode
+settings.json
