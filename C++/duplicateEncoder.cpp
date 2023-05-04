@@ -10,6 +10,7 @@ string get_dup_words(const string& word) {
     string copy = word;
     string dups = "";
 
+    // it takes a word and searched it inside the string and adds it to the array if found.
     for (int i = 0; i < copy.length(); i++) {
         char to_be_searched = copy[i];
         if (dups.find(to_be_searched) != string::npos) {
@@ -33,19 +34,25 @@ string get_dup_words(const string& word) {
 string duplicate_encoder(const string& word) {
 
     string copy = word;
+    // convert string into lower case only way to convert the whole string
     transform(copy.begin(), copy.end(), copy.begin(), ::tolower);
     cout << "lower case " << copy << endl;
+    // fetching the duplicates in this string
     string dups = get_dup_words(copy);
     cout << "duplicates: " << dups << endl;
 
+    // checking if no dups found, because in case of no dups the loop might give errors 
     if (dups.length() == 0) {
         cout << "Duplicates not found!!" << endl;
         string brackets(copy.length(),'(');
         return brackets ;
     }
+
+
     string brackets = "";
     for (char w:copy){
 
+        // checking if the current word being serached is a dup or not
         bool repeat = false;
         for (char s : dups) {
             if (w == s) {
@@ -55,6 +62,7 @@ string duplicate_encoder(const string& word) {
             }
         }
 
+        // doing this outside because we need to check for it even if it comes once in the whole array and if doesn't for the whole array then and only then we can add the other bracket
         if (repeat) {
                 brackets += ')';
 
