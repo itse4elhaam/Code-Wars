@@ -15,7 +15,7 @@ string printerError(const string &s){
 
 int main() {
     
-    string s = "aaaaaaaaaaaaaaaabbbbbbbbbbbbbbbbbbmmmmmmmmmmmmmmmmmmmxyz";
+    string s = "vbnbvnbvnaaaammmmmmmuuuuuuu";
 
     cout << "Error ratio: " << printerError(s) << endl;
     return 0;
