@@ -1,4 +1,4 @@
-# Code Wars -[🔗 Visit Here](https://katherineoelsner.com/)
+# Code Wars -[🔗 Visit Here](https://www.codewars.com/users/e4elhaam/)
 ![Codewars badge](https://www.codewars.com/users/e4elhaam/badges/large)
 
 ![code wars profile](https://iili.io/HScEcyx.png)
@@ -13,15 +13,11 @@
 
 
 ## Lessons:
-   - Understand and solve the problem first.
-   - Prioritize solving the problem over optimizing.
+   - Understand and solve the problem before writing code.
    - Don't aim for the most optimized solution on your first try.
    - Add comments to solidify your understanding.
    - Review 5 other solutions to improve.
-   - Do atleast one higher-ranked Kata each week.
-
-
-
+   - Do atleast one higher-ranked Kata that scares you each week.
 
 ## Optimizations
 
