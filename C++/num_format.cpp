@@ -21,10 +21,10 @@ string numberFormat(long long n) {
     string num = to_string(n);
     int size = num.length();
 
-    // - each if statements follows this linewise
-    // ! 1- checking if its in the form of pairs of three, if yes then we can just add commas after every 3 ones
-    // ! 2- if its not then we need to check if there is one extra digit that's stopping it from becoming pairs of 3 or two
-    // ! 3- if two => comma after first two digits else if 1 then comma after first digit
+    // * each if statements follows this line wise
+    // - 1- checking if its in the form of pairs of three, if yes then we can just add commas after every 3 ones
+    // - 2- if its not then we need to check if there is one extra digit that's stopping it from becoming pairs of 3 or two
+    // - 3- if two => comma after first two digits else if 1 then comma after first digit
     bool pairs_of_3 = size % 3 == 0;
 
     cout << "Size: " << size << endl;
