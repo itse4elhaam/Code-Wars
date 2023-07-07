@@ -11,6 +11,7 @@ using namespace std;
 // I will loop over all of the chars and
 // then I will have an inner loop that will compare the char
 // to the whole array and as soon the count reaches two I will break it and add one to the reps
+// if the string reaches its end, I will 
 // each time an alphabet is found, add it to the dups vector
 // each time before counting the reps I will check if the character is found in the vector
 
