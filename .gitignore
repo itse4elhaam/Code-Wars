@@ -2,3 +2,7 @@
 *.editorconfig
 *.vscode
 settings.json
+*.swp
+*.swo
+*.swn
+
