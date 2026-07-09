@@ -32,29 +32,37 @@ var CaesarCipher = function (shift) {
   this.encodeChar = function (ascii, shift, encode) {
     const asciShift = encode ? ascii + shift : ascii - shift;
 
-    const isLowerOrUpper = this.isLowerOrUpper(ascii);
+    const wrappedShift = this.handleWrappedShifts(ascii, asciShift);
 
-    const isUpperOutOfBound = this.isOutOfBound(asciShift, UPPERCASE_UPPER_BOUND, LOWERCASE_LOWER_BOUND)
-    if (isLowerOrUpper === "upper" && isUpperOutOfBound) {
-      const loopedBackCharAscii = this.getLoopedBackCharAscii(
-        asciShift,
-        isLowerOrUpper
-      );
-      const encodedChar = String.fromCharCode(loopedBackCharAscii);
-      return encodedChar;
-    }
-
-    const isLowerOutOfBound = this.isOutOfBound(asciShift, LOWERCASE_UPPER_BOUND, LOWERCASE_LOWER_BOUND)
-    if (isLowerOrUpper === "lower" && isLowerOutOfBound) {
-      const loopedBackCharAscii = this.getLoopedBackCharAscii(
-        asciShift,
-        isLowerOrUpper
-      );
-      const encodedChar = String.fromCharCode(loopedBackCharAscii);
-      return encodedChar;
+    if (wrappedShift) {
+      return wrappedShift;
     }
 
     const encodedChar = String.fromCharCode(asciShift);
+    return encodedChar;
+  };
+
+  this.handleWrappedShifts = function (ascii, asciShift) {
+    const isLowerOrUpper = this.isLowerOrUpper(ascii);
+
+    const isUpperOutOfBound = this.isOutOfBound(
+      asciShift,
+      UPPERCASE_UPPER_BOUND,
+      LOWERCASE_LOWER_BOUND
+    );
+
+    const isLowerOutOfBound = this.isOutOfBound(
+      asciShift,
+      LOWERCASE_UPPER_BOUND,
+      LOWERCASE_LOWER_BOUND
+    );
+    if (!isUpperOutOfBound && !isLowerOutOfBound) return;
+
+    const loopedBackCharAscii = this.getLoopedBackCharAscii(
+      asciShift,
+      isLowerOrUpper
+    );
+    const encodedChar = String.fromCharCode(loopedBackCharAscii);
     return encodedChar;
   };
 
@@ -141,5 +149,25 @@ const expected2 = "CODEWARS";
 if (result2 !== expected2) {
   console.error("expected " + expected2 + " but got " + result2);
 } else {
-  console.log("passed test 1");
+  console.log("passed test 2");
 }
+
+// const result1Obj = new CaesarCipher(5);
+// const result1 = result1Obj.encode("b");
+// const expected1 = "W";
+//
+// if (result1 !== expected1) {
+//   console.error("expected " + expected1 + " but got " + result1);
+// } else {
+//   console.log("passed test 1");
+// }
+//
+// const result2bj = new CaesarCipher(5);
+// const result2 = result2bj.decode("W");
+// const expected2 = "B";
+//
+// if (result2 !== expected2) {
+//   console.error("expected " + expected2 + " but got " + result2);
+// } else {
+//   console.log("passed test 1");
+// }
