@@ -29,24 +29,6 @@ var CaesarCipher = function (shift) {
     return encoded.toUpperCase();
   };
 
-  this.isAlpha = function (char) {
-    const isAlphabetic =
-      (char >= 65 && char <= 90) || (char >= 97 && char <= 122);
-    return isAlphabetic;
-  };
-
-  this.isLowerOrUpper = function (char) {
-    const isLower = char >= 97 && char <= 122;
-    const isUpper = char >= 65 && char <= 90;
-    if (isLower) {
-      return "lower";
-    }
-
-    if (isUpper) {
-      return "upper";
-    }
-  };
-
   this.encodeChar = function (ascii, shift, encode) {
     const asciShift = encode ? ascii + shift : ascii - shift;
 
@@ -115,7 +97,25 @@ var CaesarCipher = function (shift) {
       }
     }
 
-    return asciShift
+    return asciShift;
+  };
+
+  this.isAlpha = function (char) {
+    const isAlphabetic =
+      (char >= 65 && char <= 90) || (char >= 97 && char <= 122);
+    return isAlphabetic;
+  };
+
+  this.isLowerOrUpper = function (char) {
+    const isLower = char >= 97 && char <= 122;
+    const isUpper = char >= 65 && char <= 90;
+    if (isLower) {
+      return "lower";
+    }
+
+    if (isUpper) {
+      return "upper";
+    }
   };
 };
 
