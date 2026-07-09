@@ -15,19 +15,18 @@ var CaesarCipher = function (shift) {
 
   this.core = function (str, encode) {
     let encoded = "";
-    let abort = false;
     for (const char of str) {
       const charInAscii = char.charCodeAt(0);
       if (!this.isAlpha(charInAscii)) {
-        abort = true;
-        break;
+        encoded += char;
+        continue;
       }
 
       const encodedChar = this.encodeChar(charInAscii, shift, encode);
       encoded += encodedChar;
     }
 
-    return abort ? str.toUpperCase() : encoded.toUpperCase();
+    return encoded.toUpperCase();
   };
 
   this.isAlpha = function (char) {
@@ -84,7 +83,7 @@ var CaesarCipher = function (shift) {
       if (asciShift > UPPERCASE_UPPER_BOUND) {
         loopedBackShift = asciShift - UPPERCASE_UPPER_BOUND;
 
-        const loopedBackCharAscii = loopedBackShift + UPPERCASE_UPPER_BOUND - 1;
+        const loopedBackCharAscii = loopedBackShift + UPPERCASE_LOWER_BOUND - 1;
 
         return loopedBackCharAscii;
       }
@@ -100,7 +99,6 @@ var CaesarCipher = function (shift) {
 
     if (lowerOrUpper === "lower") {
       if (asciShift > LOWERCASE_UPPER_BOUND) {
-        console.log("inside here")
         loopedBackShift = asciShift - LOWERCASE_UPPER_BOUND;
 
         const loopedBackCharAscii = loopedBackShift + LOWERCASE_LOWER_BOUND - 1;
