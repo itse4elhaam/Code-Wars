@@ -45,7 +45,12 @@ var CaesarCipher = function (shift) {
   this.handleWrappedShifts = function (ascii, asciShift) {
     const isLowerOrUpper = this.isLowerOrUpper(ascii);
 
-    const isConversionValidAlpha = this.isAlpha(asciShift)
+    const isConversionValidAlpha =
+      isLowerOrUpper === "upper"
+        ? asciShift >= UPPERCASE_LOWER_BOUND &&
+          asciShift <= UPPERCASE_UPPER_BOUND
+        : asciShift >= LOWERCASE_LOWER_BOUND &&
+          asciShift <= LOWERCASE_UPPER_BOUND;
     if (isConversionValidAlpha) return;
 
     const loopedBackCharAscii = this.getLoopedBackCharAscii(
