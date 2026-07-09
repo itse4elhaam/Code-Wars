@@ -45,18 +45,8 @@ var CaesarCipher = function (shift) {
   this.handleWrappedShifts = function (ascii, asciShift) {
     const isLowerOrUpper = this.isLowerOrUpper(ascii);
 
-    const isUpperOutOfBound = this.isOutOfBound(
-      asciShift,
-      UPPERCASE_UPPER_BOUND,
-      LOWERCASE_LOWER_BOUND
-    );
-
-    const isLowerOutOfBound = this.isOutOfBound(
-      asciShift,
-      LOWERCASE_UPPER_BOUND,
-      LOWERCASE_LOWER_BOUND
-    );
-    if (!isUpperOutOfBound && !isLowerOutOfBound) return;
+    const isConversionValidAlpha = this.isAlpha(asciShift)
+    if (isConversionValidAlpha) return;
 
     const loopedBackCharAscii = this.getLoopedBackCharAscii(
       asciShift,
@@ -64,12 +54,6 @@ var CaesarCipher = function (shift) {
     );
     const encodedChar = String.fromCharCode(loopedBackCharAscii);
     return encodedChar;
-  };
-
-  this.isOutOfBound = function (number, lower, upper) {
-    const isOutOfBound = number > upper || number < lower;
-
-    return isOutOfBound;
   };
 
   this.getLoopedBackCharAscii = function (asciShift, lowerOrUpper) {
@@ -153,8 +137,8 @@ if (result2 !== expected2) {
 }
 
 // const result1Obj = new CaesarCipher(5);
-// const result1 = result1Obj.encode("b");
-// const expected1 = "W";
+// const result1 = result1Obj.encode("w");
+// const expected1 = "B";
 //
 // if (result1 !== expected1) {
 //   console.error("expected " + expected1 + " but got " + result1);
@@ -163,8 +147,8 @@ if (result2 !== expected2) {
 // }
 //
 // const result2bj = new CaesarCipher(5);
-// const result2 = result2bj.decode("W");
-// const expected2 = "B";
+// const result2 = result2bj.decode("B");
+// const expected2 = "W";
 //
 // if (result2 !== expected2) {
 //   console.error("expected " + expected2 + " but got " + result2);
