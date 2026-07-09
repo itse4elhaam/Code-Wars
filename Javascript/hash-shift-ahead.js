@@ -100,33 +100,36 @@ var CaesarCipher = function (shift) {
 
     if (lowerOrUpper === "lower") {
       if (asciShift > LOWERCASE_UPPER_BOUND) {
+        console.log("inside here")
         loopedBackShift = asciShift - LOWERCASE_UPPER_BOUND;
-
-        const loopedBackCharAscii = loopedBackShift + LOWERCASE_UPPER_BOUND - 1;
-
-        return loopedBackCharAscii;
-      }
-
-      if (asciShift < LOWERCASE_LOWER_BOUND) {
-        loopedBackShift = asciShift + LOWERCASE_LOWER_BOUND;
 
         const loopedBackCharAscii = loopedBackShift + LOWERCASE_LOWER_BOUND - 1;
 
         return loopedBackCharAscii;
       }
+
+      if (asciShift < LOWERCASE_LOWER_BOUND) {
+        loopedBackShift = LOWERCASE_LOWER_BOUND - asciShift;
+
+        const loopedBackCharAscii = LOWERCASE_UPPER_BOUND - loopedBackShift + 1;
+
+        return loopedBackCharAscii;
+      }
     }
+
+    return asciShift
   };
 };
 
-// const result1Obj = new CaesarCipher(5);
-// const result1 = result1Obj.encode("Codewars");
-// const expected1 = "HTIJBFWX";
-//
-// if (result1 !== expected1) {
-//   console.error("expected " + expected1 + " but got " + result1);
-// } else {
-//   console.log("passed test 1");
-// }
+const result1Obj = new CaesarCipher(5);
+const result1 = result1Obj.encode("Codewars");
+const expected1 = "HTIJBFWX";
+
+if (result1 !== expected1) {
+  console.error("expected " + expected1 + " but got " + result1);
+} else {
+  console.log("passed test 1");
+}
 
 const result2bj = new CaesarCipher(5);
 const result2 = result2bj.decode("HTIJBFWX");
