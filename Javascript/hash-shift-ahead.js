@@ -56,6 +56,7 @@ var CaesarCipher = function (shift) {
     return encodedChar;
   };
 
+  // TODO: refactor this
   this.getLoopedBackCharAscii = function (asciShift, lowerOrUpper) {
     let loopedBackShift = 0;
     if (lowerOrUpper === "upper") {
