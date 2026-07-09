@@ -33,8 +33,8 @@ var CaesarCipher = function (shift) {
     const asciShift = encode ? ascii + shift : ascii - shift;
 
     const isLowerOrUpper = this.isLowerOrUpper(ascii);
-    const isUpperOutOfBound =
-      asciShift > UPPERCASE_LOWER_BOUND || asciShift < LOWERCASE_UPPER_BOUND;
+
+    const isUpperOutOfBound = this.isOutOfBound(asciShift, UPPERCASE_UPPER_BOUND, LOWERCASE_LOWER_BOUND)
     if (isLowerOrUpper === "upper" && isUpperOutOfBound) {
       const loopedBackCharAscii = this.getLoopedBackCharAscii(
         asciShift,
@@ -44,8 +44,7 @@ var CaesarCipher = function (shift) {
       return encodedChar;
     }
 
-    const isLowerOutOfBound =
-      asciShift > LOWERCASE_UPPER_BOUND || asciShift < LOWERCASE_UPPER_BOUND;
+    const isLowerOutOfBound = this.isOutOfBound(asciShift, LOWERCASE_UPPER_BOUND, LOWERCASE_LOWER_BOUND)
     if (isLowerOrUpper === "lower" && isLowerOutOfBound) {
       const loopedBackCharAscii = this.getLoopedBackCharAscii(
         asciShift,
@@ -57,6 +56,12 @@ var CaesarCipher = function (shift) {
 
     const encodedChar = String.fromCharCode(asciShift);
     return encodedChar;
+  };
+
+  this.isOutOfBound = function (number, lower, upper) {
+    const isOutOfBound = number > upper || number < lower;
+
+    return isOutOfBound;
   };
 
   this.getLoopedBackCharAscii = function (asciShift, lowerOrUpper) {
