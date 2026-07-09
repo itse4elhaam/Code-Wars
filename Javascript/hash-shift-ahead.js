@@ -91,10 +91,8 @@ var CaesarCipher = function (shift) {
 
       if (asciShift < UPPERCASE_LOWER_BOUND) {
         loopedBackShift = UPPERCASE_LOWER_BOUND - asciShift;
-        console.log("asciShift", asciShift)
-        console.log("newShift", loopedBackShift)
 
-        const loopedBackCharAscii = loopedBackShift + UPPERCASE_LOWER_BOUND - 1;
+        const loopedBackCharAscii = UPPERCASE_UPPER_BOUND - loopedBackShift + 1;
 
         return loopedBackCharAscii;
       }
@@ -130,19 +128,9 @@ var CaesarCipher = function (shift) {
 //   console.log("passed test 1");
 // }
 
-// const result2bj = new CaesarCipher(5);
-// const result2 = result2bj.decode("HTIJBFWX");
-// const expected2 = "CODEWARS";
-//
-// if (result2 !== expected2) {
-//   console.error("expected " + expected2 + " but got " + result2);
-// } else {
-//   console.log("passed test 1");
-// }
-
 const result2bj = new CaesarCipher(5);
-const result2 = result2bj.decode("B");
-const expected2 = "W";
+const result2 = result2bj.decode("HTIJBFWX");
+const expected2 = "CODEWARS";
 
 if (result2 !== expected2) {
   console.error("expected " + expected2 + " but got " + result2);
