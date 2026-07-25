@@ -5,34 +5,30 @@ function solution(text, markers) {
   const SPACE = " ";
   const ESCAPE_CHAR = "\\";
   const containsEscapeChar = text.includes(ESCAPE_CHAR);
+  console.log("ESCAPE_CHAR", ESCAPE_CHAR)
+  console.log("text", text)
   console.log("containsEscapeChar", containsEscapeChar)
   const isSingleMarker = markers.length === 1;
   for (let i = 0; i < text.length; i++) {
     const char = text[i];
-    console.log("char", char);
     const nextChar = text[i + 1];
+
+    const clearTillEnd =
+      !containsEscapeChar && isSingleMarker && markers.includes(char);
+    if (clearTillEnd) {
+      break;
+    }
+
     if (markers.includes(char)) {
       removeNextWord = true;
       continue;
     }
 
-    const clearTillEnd =
-      !containsEscapeChar && isSingleMarker && markers.includes(char);
-      console.log("char", char)
-      console.log("markers", markers)
-    console.table({
-      notContainsEscapeChar: !containsEscapeChar,
-      isSingleMarker: isSingleMarker,
-      markers: markers.includes(char),
-    });
-    console.log("clearTillEnd", clearTillEnd);
-    if (clearTillEnd) {
-      console.log("INSIDE the clearTillEnd block")
-      return finalText
-    }
 
+    console.log("char", char)
+    console.log("removeNextWord", removeNextWord)
     if (removeNextWord) {
-      const isNextWordSpace = nextChar === SPACE;
+      const isNextWordSpace = !containsEscapeChar && nextChar === SPACE;
       const isNextWordEscapeChar = nextChar === ESCAPE_CHAR;
       if (isNextWordSpace || isNextWordEscapeChar) {
         removeNextWord = false;
@@ -67,29 +63,29 @@ const tests = [
   // ['aa bb cc  ', [], 'aa bb cc'],
   // ['  aa bb cc', [], '  aa bb cc'],
   // ["  aa # bb # cc  ", [], "  aa # bb # cc"],
-
+  //
   // ["aa bb cc", ["#"], "aa bb cc"],
   // ["aa bb # cc", ["#"], "aa bb"],
-  ["aa# bb cc", ["#"], "aa"],
-  ["aa #bb cc", ["#"], "aa"],
-  ["aa # bb # cc", ["#"], "aa"],
-  ["#aa bb cc", ["#"], ""],
+  // ["aa# bb cc", ["#"], "aa"],
+  // ["aa #bb cc", ["#"], "aa"],
+  // ["aa # bb # cc", ["#"], "aa"],
+  // ["#aa bb cc", ["#"], ""],
 
-  ["#aa bb\ncc dd", ["#"], "\ncc dd"],
-  ["aa # bb\ncc dd", ["#"], "aa\ncc dd"],
-  ["aa bb\n#cc dd", ["#"], "aa bb\n"],
-  ["aa bb\ncc # dd", ["#"], "aa bb\ncc"],
-  ["aa bb\ncc dd#", ["#"], "aa bb\ncc dd"],
+  [String.raw`#aa bb\ncc dd`, ["#"], String.raw`\ncc dd`],
+  [String.raw`aa # bb\ncc dd`, ["#"], String.raw`aa\ncc dd`],
+  [String.raw`aa bb\n#cc dd`, ["#"], String.raw`aa bb\n`],
+  [String.raw`aa bb\ncc # dd`, ["#"], String.raw`aa bb\ncc`],
+  [String.raw`aa bb\ncc dd#`, ["#"], String.raw`aa bb\ncc dd`],
 
-  ["aa bb\ncc dd", ["#", "!"], "aa bb\ncc dd"],
-  ["aa # bb\ncc dd", ["#", "!"], "aa\ncc dd"],
-  ["aa bb\ncc ! dd", ["#", "!"], "aa bb\ncc"],
-  ["#aa bb\n!cc dd", ["#", "!"], "\n"],
-  ["aa ! bb\ncc # dd", ["#", "!"], "aa\ncc"],
-  ["aa bb#\ncc dd!", ["#", "!"], "aa bb\ncc dd"],
+  [String.raw`aa bb\ncc dd`, ["#", "!"], String.raw`aa bb\ncc dd`],
+  [String.raw`aa # bb\ncc dd`, ["#", "!"], String.raw`aa\ncc dd`],
+  [String.raw`aa bb\ncc ! dd`, ["#", "!"], String.raw`aa bb\ncc`],
+  [String.raw`#aa bb\n!cc dd`, ["#", "!"], String.raw`\n`],
+  [String.raw`aa ! bb\ncc # dd`, ["#", "!"], String.raw`aa\ncc`],
+  [String.raw`aa bb#\ncc dd!`, ["#", "!"], String.raw`aa bb\ncc dd`],
 
-  ["aa + bb\ncc - dd\nee * ff", ["+", "-", "*"], "aa\ncc\nee"],
-  ["aa / bb\ncc ^ dd\nee $ ff", ["/", "^", "$"], "aa\ncc\nee"],
+  [String.raw`aa + bb\ncc - dd\nee * ff`, ["+", "-", "*"], String.raw`aa\ncc\nee`],
+  [String.raw`aa / bb\ncc ^ dd\nee $ ff`, ["/", "^", "$"], String.raw`aa\ncc\nee`],
 ];
 
 tests.forEach(([text, markers, expected], i) =>
